@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
+import { useRef, useEffect, useState } from "react"
 import { SectionHeader } from "./SectionHeader"
 
 const skills = [
@@ -49,16 +49,30 @@ const skillVariants = {
 export default function AboutSection() {
   const ref = useRef(null)
   const skillsRef = useRef(null)
+  const [hasAnimated, setHasAnimated] = useState(false)
+
+  // More lenient intersection observer settings
   const isInView = useInView(ref, {
     once: true,
-    margin: "-15%",
-    amount: 0.2,
+    margin: "-5%", // Reduced margin for better triggering
+    amount: 0.1, // Reduced amount for easier triggering
   })
+
   const skillsInView = useInView(skillsRef, {
     once: true,
-    margin: "-10%",
-    amount: 0.1,
+    margin: "0%", // No margin for skills
+    amount: 0.05, // Very low threshold
   })
+
+  // Fallback visibility
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasAnimated(true)
+    }, 4000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const shouldShow = isInView || hasAnimated
 
   return (
     <section id="about" className="py-40 bg-white">
@@ -66,9 +80,13 @@ export default function AboutSection() {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
-          style={{ willChange: "transform, opacity" }}
+          style={{
+            willChange: "transform, opacity",
+            // Ensure section is always visible as fallback
+            minHeight: "200px",
+          }}
         >
           <div className="grid lg:grid-cols-12 gap-20">
             <div className="lg:col-span-3">
@@ -79,7 +97,7 @@ export default function AboutSection() {
               <div className="space-y-12">
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ delay: 0.2, duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
                   className="text-2xl font-light text-black leading-relaxed"
                   style={{ willChange: "transform, opacity" }}
@@ -90,7 +108,7 @@ export default function AboutSection() {
 
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ delay: 0.3, duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
                   className="text-lg font-light text-gray-600 leading-relaxed max-w-3xl"
                   style={{ willChange: "transform, opacity" }}
@@ -103,7 +121,7 @@ export default function AboutSection() {
                 <div className="pt-8">
                   <motion.h3
                     initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ delay: 0.4, duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
                     className="text-lg font-medium text-black mb-8 tracking-tight"
                     style={{ willChange: "transform, opacity" }}
@@ -114,7 +132,7 @@ export default function AboutSection() {
                     ref={skillsRef}
                     variants={containerVariants}
                     initial="hidden"
-                    animate={skillsInView ? "visible" : "hidden"}
+                    animate={skillsInView || hasAnimated ? "visible" : "hidden"}
                     className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-6"
                     style={{ willChange: "transform, opacity" }}
                   >

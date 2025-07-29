@@ -9,20 +9,33 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.6,
+      duration: 0.8,
       ease: [0.4, 0.0, 0.2, 1],
-      staggerChildren: 0.15,
+      staggerChildren: 0.2,
+      delayChildren: 0.3,
     },
   },
 }
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.8,
+      ease: [0.4, 0.0, 0.2, 1],
+    },
+  },
+}
+
+const heroTextVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.0,
       ease: [0.4, 0.0, 0.2, 1],
     },
   },
@@ -43,7 +56,7 @@ export default function HeroSection() {
           ref={ref}
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate="visible"
           className="text-left"
           style={{
             willChange: "transform, opacity",
@@ -59,7 +72,7 @@ export default function HeroSection() {
           </motion.p>
 
           <motion.div
-            variants={itemVariants}
+            variants={heroTextVariants}
             className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter text-black mb-16 leading-none"
             style={{ willChange: "transform, opacity" }}
           >
@@ -80,10 +93,10 @@ export default function HeroSection() {
 
       <motion.div
         initial={{ opacity: 0, scaleY: 0 }}
-        animate={isInView ? { opacity: 1, scaleY: 1 } : { opacity: 0, scaleY: 0 }}
+        animate={{ opacity: 1, scaleY: 1 }}
         transition={{
-          delay: 0.8,
-          duration: 0.6,
+          delay: 1.5,
+          duration: 0.8,
           ease: [0.4, 0.0, 0.2, 1],
         }}
         className="absolute bottom-12 left-1/2 transform -translate-x-1/2"

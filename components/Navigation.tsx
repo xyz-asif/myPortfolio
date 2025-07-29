@@ -79,9 +79,9 @@ export default function Navigation() {
   return (
     <>
       <motion.nav
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.4, 0.0, 0.2, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
           scrolled
             ? "bg-white/80 backdrop-blur-xl border-b border-white/20 shadow-sm"
@@ -102,13 +102,21 @@ export default function Navigation() {
               whileHover={{ opacity: 0.7 }}
               transition={{ duration: 0.2 }}
               style={{ willChange: "opacity" }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
             >
               Asif Shaik
             </motion.button>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-12">
-              {navItems.map((item) => (
+            <motion.div
+              className="hidden md:flex space-x-12"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
+              {navItems.map((item, index) => (
                 <motion.button
                   key={item.name}
                   onClick={() => handleNavClick(item.href)}
@@ -116,11 +124,14 @@ export default function Navigation() {
                   transition={{ duration: 0.2 }}
                   className="text-sm font-medium tracking-wide text-black transition-opacity duration-200"
                   style={{ willChange: "opacity" }}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
                 >
                   {item.name}
                 </motion.button>
               ))}
-            </div>
+            </motion.div>
 
             {/* Mobile Menu Button */}
             <motion.button
@@ -132,6 +143,9 @@ export default function Navigation() {
               aria-label="Toggle mobile menu"
               aria-expanded={mobileMenuOpen}
               style={{ willChange: "opacity, transform" }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
             >
               <AnimatePresence mode="wait" initial={false}>
                 {mobileMenuOpen ? (
