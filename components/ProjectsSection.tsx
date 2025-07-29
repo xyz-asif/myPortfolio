@@ -58,7 +58,7 @@ const containerVariants = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: [0.4, 0.0, 0.2, 1],
+      ease: "easeInOut",
       staggerChildren: 0.1,
     },
   },
@@ -71,7 +71,7 @@ const projectVariants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: [0.4, 0.0, 0.2, 1],
+      ease: "easeInOut",
     },
   },
 }
@@ -186,30 +186,30 @@ export default function ProjectsSection() {
               >
                 <div className="bg-white border border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-lg">
                   <div className="aspect-[4/3] bg-gray-50 overflow-hidden">
-                    <Image
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      width={600}
-                      height={400}
-                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                      style={{ willChange: "transform" }}
-                    />
+                  <Image
+                    src={project.image || "/placeholder.svg"}
+                    alt={project.title}
+                    width={400}
+                    height={267}
+                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    style={{ willChange: "transform" }}
+                  />
                   </div>
-                  <div className="p-8">
-                    <div className="flex items-center gap-3 mb-4">
+                  <div className="p-4">
+                    <div className="flex items-center gap-3 mb-2">
                       <span className="text-xs font-medium text-gray-400 tracking-wide">{project.year}</span>
                       <span className="text-xs text-gray-300">•</span>
                       <span className="text-xs font-medium text-gray-400 tracking-wide">{project.category}</span>
                     </div>
-                    <h3 className="text-xl font-medium tracking-tight text-black mb-4">{project.title}</h3>
-                    <p className="text-base font-light text-gray-600 leading-relaxed mb-6">{project.description}</p>
+                    <h3 className="text-lg font-medium tracking-tight text-black mb-2">{project.title}</h3>
+                    <p className="text-sm font-light text-gray-600 leading-relaxed mb-4">{project.description}</p>
                     <motion.a
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={{ opacity: 0.6 }}
                       transition={{ duration: 0.2 }}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-black tracking-wide transition-opacity duration-200"
+                      className="inline-flex items-center gap-2 text-xs font-medium text-black tracking-wide transition-opacity duration-200"
                     >
                       View Project
                       <ExternalLink size={14} />

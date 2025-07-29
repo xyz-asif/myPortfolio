@@ -15,7 +15,7 @@ export function SmoothAnimatedText({ words, className = "" }: SmoothAnimatedText
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % words.length)
-    }, 2500)
+    }, 1800)
 
     return () => {
       if (intervalRef.current) {

@@ -12,7 +12,7 @@ export function SectionHeader({ title, className = "" }: SectionHeaderProps) {
   const ref = useRef(null)
   const isInView = useInView(ref, {
     once: true,
-    margin: "-20%",
+    margin: "0px",
     amount: 0.5,
   })
 
