@@ -37,18 +37,18 @@ export function SmoothAnimatedText({ words, className = "" }: SmoothAnimatedText
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={currentIndex}
-          initial={{ opacity: 0, y: 6, filter: "blur(1px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: -6, filter: "blur(1px)" }}
+          initial={{ opacity: 0, rotateX: 90, transformOrigin: "bottom center" }}
+          animate={{ opacity: 1, rotateX: 0, transformOrigin: "bottom center" }}
+          exit={{ opacity: 0, rotateX: -90, transformOrigin: "top center" }}
           transition={{
-            duration: 0.5,
-            ease: [0.4, 0.0, 0.2, 1],
-            filter: { duration: 0.3 },
+            duration: 0.6,
+            ease: "easeInOut",
           }}
           className="block whitespace-nowrap"
           style={{
-            willChange: "transform, opacity, filter",
-            transform: "translate3d(0, 0, 0)",
+            willChange: "transform, opacity",
+            transformStyle: "preserve-3d",
+            perspective: 1000,
           }}
         >
           {words[currentIndex]}

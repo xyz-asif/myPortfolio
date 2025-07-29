@@ -31,7 +31,7 @@ export function BackgroundEffects() {
     }> = []
 
     // Create particles
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,

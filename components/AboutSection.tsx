@@ -28,7 +28,7 @@ const containerVariants = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: [0.4, 0.0, 0.2, 1],
+      ease: "easeInOut" as const,
       staggerChildren: 0.05,
     },
   },
@@ -41,7 +41,7 @@ const skillVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.4, 0.0, 0.2, 1],
+      ease: "easeInOut" as const,
     },
   },
 }
@@ -51,12 +51,12 @@ export default function AboutSection() {
   const skillsRef = useRef(null)
   const isInView = useInView(ref, {
     once: true,
-    margin: "-15%",
+    margin: "0px",
     amount: 0.2,
   })
   const skillsInView = useInView(skillsRef, {
     once: true,
-    margin: "-10%",
+    margin: "0px",
     amount: 0.1,
   })
 
@@ -67,7 +67,7 @@ export default function AboutSection() {
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
           style={{ willChange: "transform, opacity" }}
         >
           <div className="grid lg:grid-cols-12 gap-20">
@@ -80,7 +80,7 @@ export default function AboutSection() {
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: 0.2, duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
+                  transition={{ delay: 0.2, duration: 0.6, ease: "easeInOut" }}
                   className="text-2xl font-light text-black leading-relaxed"
                   style={{ willChange: "transform, opacity" }}
                 >
@@ -91,7 +91,7 @@ export default function AboutSection() {
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: 0.3, duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
+                  transition={{ delay: 0.3, duration: 0.6, ease: "easeInOut" }}
                   className="text-lg font-light text-gray-600 leading-relaxed max-w-3xl"
                   style={{ willChange: "transform, opacity" }}
                 >
@@ -104,7 +104,7 @@ export default function AboutSection() {
                   <motion.h3
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    transition={{ delay: 0.4, duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
+                    transition={{ delay: 0.4, duration: 0.6, ease: "easeInOut" }}
                     className="text-lg font-medium text-black mb-8 tracking-tight"
                     style={{ willChange: "transform, opacity" }}
                   >
