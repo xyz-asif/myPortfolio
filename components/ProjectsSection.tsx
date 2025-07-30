@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
+import { useRef, useEffect, useState } from "react"
 import { ExternalLink } from "lucide-react"
 import Image from "next/image"
 import { SectionHeader } from "./SectionHeader"
@@ -77,18 +77,30 @@ const projectVariants = {
 }
 
 export default function ProjectsSection() {
+  const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef(null)
   const projectsRef = useRef(null)
   const isInView = useInView(ref, {
     once: true,
-    margin: "-15%",
-    amount: 0.1,
+    margin: "-5%", // More lenient
+    amount: 0.05, // Lower threshold
   })
   const projectsInView = useInView(projectsRef, {
     once: true,
-    margin: "-10%",
-    amount: 0.1,
+    margin: "0%", // No margin
+    amount: 0.05, // Very low threshold
   })
+
+  // Fallback visibility
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasAnimated(true)
+    }, 6000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const shouldShow = isInView || hasAnimated
+  const shouldShowProjects = projectsInView || hasAnimated
 
   return (
     <section id="projects" className="py-40 bg-white">
@@ -96,9 +108,9 @@ export default function ProjectsSection() {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
-          style={{ willChange: "transform, opacity" }}
+          style={{ willChange: "transform, opacity", minHeight: "200px", }}
         >
           <div className="grid lg:grid-cols-12 gap-20 mb-24">
             <div className="lg:col-span-3">
@@ -107,7 +119,7 @@ export default function ProjectsSection() {
             <div className="lg:col-span-9">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ delay: 0.2, duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
                 className="text-xl font-light text-gray-600 leading-relaxed"
                 style={{ willChange: "transform, opacity" }}
@@ -121,7 +133,7 @@ export default function ProjectsSection() {
           {/* Featured Project */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{
               delay: 0.3,
               duration: 0.6,
@@ -173,7 +185,7 @@ export default function ProjectsSection() {
             ref={projectsRef}
             variants={containerVariants}
             initial="hidden"
-            animate={projectsInView ? "visible" : "hidden"}
+            animate={shouldShowProjects ? "visible" : "hidden"}
             className="grid grid-cols-1 md:grid-cols-2 gap-8"
             style={{ willChange: "transform, opacity" }}
           >
@@ -186,31 +198,30 @@ export default function ProjectsSection() {
               >
                 <div className="bg-white border border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-lg">
                   <div className="aspect-[4/3] bg-gray-50 overflow-hidden">
-                  <Image
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.title}
-                    width={400}
-                    height={267}
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                    style={{ willChange: "transform" }}
-                  />
+                    <Image
+                      src={project.image || "/placeholder.svg"}
+                      alt={project.title}
+                      width={400}
+                      height={267}
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      style={{ willChange: "transform" }}
+                    />
                   </div>
-                  <div className="p-4">
-                    <div className="flex items-center gap-3 mb-2">
+                  <div className="p-8">
+                    <div className="flex items-center gap-3 mb-4">
                       <span className="text-xs font-medium text-gray-400 tracking-wide">{project.year}</span>
                       <span className="text-xs text-gray-300">•</span>
                       <span className="text-xs font-medium text-gray-400 tracking-wide">{project.category}</span>
                     </div>
-                    <h3 className="text-lg font-medium tracking-tight text-black mb-2">{project.title}</h3>
-                    <p className="text-sm font-light text-gray-600 leading-relaxed mb-4">{project.description}</p>
+                    <h3 className="text-xl font-medium tracking-tight text-black mb-4">{project.title}</h3>
+                    <p className="text-base font-light text-gray-600 leading-relaxed mb-6">{project.description}</p>
                     <motion.a
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={{ opacity: 0.6 }}
                       transition={{ duration: 0.2 }}
-                      className="inline-flex items-center gap-2 text-xs font-medium text-black tracking-wide transition-opacity duration-200"
-                    >
+                      className="inline-flex items-center gap-2 text-sm font-medium text-black tracking-wide transition-opacity duration-200">
                       View Project
                       <ExternalLink size={14} />
                     </motion.a>
@@ -223,7 +234,7 @@ export default function ProjectsSection() {
           {/* Button Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={projectsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            animate={shouldShowProjects ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{
               delay: 0.4,
               duration: 0.6,
@@ -246,6 +257,6 @@ export default function ProjectsSection() {
           </motion.div>
         </motion.div>
       </div>
-    </section>
+    </section >
   )
 }
