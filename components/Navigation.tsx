@@ -79,14 +79,13 @@ export default function Navigation() {
   return (
     <>
       <motion.nav
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
-          scrolled
-            ? "bg-white/80 backdrop-blur-xl border-b border-white/20 shadow-sm"
-            : "bg-transparent backdrop-blur-none"
-        }`}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.4, 0.0, 0.2, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${scrolled
+          ? "bg-white/80 backdrop-blur-xl border-b border-white/20 shadow-sm"
+          : "bg-transparent backdrop-blur-none"
+          }`}
         style={{
           backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
@@ -99,9 +98,9 @@ export default function Navigation() {
             <motion.button
               onClick={() => handleNavClick("#home")}
               className="text-xl font-medium tracking-tight text-black font-serif relative z-50"
-              whileHover={{ opacity: 0.7 }}
-              transition={{ duration: 0.2 }}
-              style={{ willChange: "opacity" }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
             >
               Asif Shaik
             </motion.button>
@@ -128,10 +127,12 @@ export default function Navigation() {
               className="md:hidden relative z-50 p-2 -m-2"
               whileHover={{ opacity: 0.7 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
               aria-label="Toggle mobile menu"
               aria-expanded={mobileMenuOpen}
               style={{ willChange: "opacity, transform" }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
             >
               <AnimatePresence mode="wait" initial={false}>
                 {mobileMenuOpen ? (

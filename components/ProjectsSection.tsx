@@ -58,7 +58,7 @@ const containerVariants = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
       staggerChildren: 0.1,
     },
   },
@@ -71,7 +71,7 @@ const projectVariants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
     },
   },
 }

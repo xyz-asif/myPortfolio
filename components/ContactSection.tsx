@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { motion, useInView } from "framer-motion"
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { SectionHeader } from "./SectionHeader"
 
 const containerVariants = {
@@ -12,7 +12,7 @@ const containerVariants = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: [0.4, 0.0, 0.2, 1],
+      ease: [0.4, 0.0, 0.2, 1] as [number, number, number, number],
       staggerChildren: 0.1,
     },
   },
@@ -25,17 +25,18 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.4, 0.0, 0.2, 1],
+      ease: [0.4, 0.0, 0.2, 1] as [number, number, number, number],
     },
   },
 }
 
 export default function ContactSection() {
+  const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, {
     once: true,
-    margin: "-15%",
-    amount: 0.1,
+    margin: "-5%", // More lenient
+    amount: 0.05, // Lower threshold
   })
   const [formData, setFormData] = useState({
     name: "",
@@ -57,15 +58,27 @@ export default function ContactSection() {
     console.log("Form submitted:", formData)
   }
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasAnimated(true)
+    }, 7000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const shouldShow = isInView || hasAnimated
+
   return (
     <section id="contact" className="py-40 bg-gray-50">
       <div className="max-w-6xl mx-auto px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
-          style={{ willChange: "transform, opacity" }}
+          style={{
+            willChange: "transform, opacity",
+            minHeight: "200px",
+          }}
         >
           <div className="grid lg:grid-cols-12 gap-20">
             <div className="lg:col-span-3">
@@ -77,7 +90,8 @@ export default function ContactSection() {
                 <motion.div
                   variants={containerVariants}
                   initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
+                  animate={shouldShow ? "visible" : "hidden"}
+
                   className="lg:col-span-2"
                   style={{ willChange: "transform, opacity" }}
                 >
@@ -132,7 +146,7 @@ export default function ContactSection() {
 
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   transition={{ delay: 0.3, duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
                   className="lg:col-span-3"
                   style={{ willChange: "transform, opacity" }}

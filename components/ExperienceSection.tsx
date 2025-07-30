@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import { SectionHeader } from "./SectionHeader"
 
 const experiences = [
@@ -37,7 +37,7 @@ const containerVariants = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: [0.4, 0.0, 0.2, 1],
+      ease: [0.4, 0.0, 0.2, 1] as [number, number, number, number],
       staggerChildren: 0.15,
     },
   },
@@ -50,18 +50,28 @@ const experienceVariants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: [0.4, 0.0, 0.2, 1],
+      ease: [0.4, 0.0, 0.2, 1] as [number, number, number, number],
     },
   },
 }
 
 export default function ExperienceSection() {
+  const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, {
     once: true,
-    margin: "-15%",
-    amount: 0.1,
+    margin: "-5%", // More lenient margin
+    amount: 0.05, // Lower threshold
   })
+  // Fallback visibility
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasAnimated(true)
+    }, 5000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const shouldShow = isInView || hasAnimated
 
   return (
     <section id="experience" className="py-40 bg-gray-50">
@@ -69,7 +79,7 @@ export default function ExperienceSection() {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
           style={{ willChange: "transform, opacity" }}
         >
@@ -82,9 +92,9 @@ export default function ExperienceSection() {
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
+                animate={shouldShow ? "visible" : "hidden"}
                 className="space-y-20"
-                style={{ willChange: "transform, opacity" }}
+                style={{ willChange: "transform, opacity", minHeight: "200px" }}
               >
                 {experiences.map((exp, index) => (
                   <motion.div
@@ -111,7 +121,7 @@ export default function ExperienceSection() {
 
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                animate={shouldShow  ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{
                   delay: 0.6,
                   duration: 0.6,

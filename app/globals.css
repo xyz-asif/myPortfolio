@@ -147,6 +147,7 @@ img {
 
 /* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -162,5 +163,113 @@ img {
   * {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+  }
+}
+
+
+
+/* Ensure section headers are always visible */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* Fallback for section headers */
+.section-header-fallback {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* Ensure minimum visibility for critical elements */
+section {
+  min-height: 100px;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Minimal loader styles */
+.minimal-loader {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Clean progress bar */
+.progress-bar-minimal {
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Typography refinements for loader */
+.loader-text {
+  font-weight: 300;
+  letter-spacing: 0.025em;
+  line-height: 1.4;
+}
+
+.loader-percentage {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Ensure critical content is always visible */
+@media (max-width: 640px) {
+  section {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  /* Mobile loader adjustments */
+  .minimal-loader {
+    padding: 1rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .progress-bar-minimal {
+    background: #000;
+  }
+
+  .loader-text {
+    color: #000;
+    font-weight: 400;
+  }
+}
+
+/* Dark mode preparation (if needed later) */
+@media (prefers-color-scheme: dark) {
+  .minimal-loader {
+    background: rgba(0, 0, 0, 0.98);
+    color: white;
   }
 }
