@@ -130,55 +130,6 @@ export default function ProjectsSection() {
             </div>
           </div>
 
-          {/* Featured Project */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{
-              delay: 0.3,
-              duration: 0.6,
-              ease: [0.4, 0.0, 0.2, 1],
-            }}
-            className="mb-24"
-            style={{ willChange: "transform, opacity" }}
-          >
-            <div className="bg-gray-50 overflow-hidden group">
-              <div className="grid lg:grid-cols-2 gap-0">
-                <div className="aspect-[4/3] lg:aspect-auto bg-gray-100 overflow-hidden">
-                  <Image
-                    src={featuredProject.image || "/placeholder.svg"}
-                    alt={featuredProject.title}
-                    width={900}
-                    height={600}
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                    style={{ willChange: "transform" }}
-                  />
-                </div>
-                <div className="p-12 lg:p-16 flex flex-col justify-center">
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="text-xs font-medium text-gray-400 tracking-wide">{featuredProject.year}</span>
-                    <span className="text-xs text-gray-300">•</span>
-                    <span className="text-xs font-medium text-gray-400 tracking-wide">{featuredProject.category}</span>
-                    <span className="text-xs text-gray-300">•</span>
-                    <span className="text-xs font-medium text-blue-600 tracking-wide">FEATURED</span>
-                  </div>
-                  <h3 className="text-3xl font-light tracking-tighter text-black mb-6">{featuredProject.title}</h3>
-                  <p className="text-lg font-light text-gray-600 leading-relaxed mb-8">{featuredProject.description}</p>
-                  <motion.a
-                    href={featuredProject.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ opacity: 0.6 }}
-                    transition={{ duration: 0.2 }}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-black tracking-wide transition-opacity duration-200"
-                  >
-                    View Project
-                    <ExternalLink size={16} />
-                  </motion.a>
-                </div>
-              </div>
-            </div>
-          </motion.div>
 
           {/* Other Projects Grid */}
           <motion.div
@@ -186,7 +137,7 @@ export default function ProjectsSection() {
             variants={containerVariants}
             initial="hidden"
             animate={shouldShowProjects ? "visible" : "hidden"}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
             style={{ willChange: "transform, opacity" }}
           >
             {projects.map((project, index) => (
@@ -196,8 +147,8 @@ export default function ProjectsSection() {
                 className="group"
                 style={{ willChange: "transform, opacity" }}
               >
-                <div className="bg-white border border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-lg">
-                  <div className="aspect-[4/3] bg-gray-50 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-md   border border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-lg">
+                  <div className="aspect-[4/3] rounded-t-xl bg-gray-50 overflow-hidden">
                     <Image
                       src={project.image || "/placeholder.svg"}
                       alt={project.title}
@@ -231,30 +182,6 @@ export default function ProjectsSection() {
             ))}
           </motion.div>
 
-          {/* Button Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={shouldShowProjects ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{
-              delay: 0.4,
-              duration: 0.6,
-              ease: [0.4, 0.0, 0.2, 1],
-            }}
-            className="text-center mt-20"
-            style={{ willChange: "transform, opacity" }}
-          >
-            <p className="text-sm font-light text-gray-500 mb-8">
-              More projects available upon request • Total downloads: 5M+
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              className="px-8 py-3 border border-gray-300 text-sm font-medium text-black tracking-wide hover:border-black transition-colors duration-200"
-            >
-              View All Projects
-            </motion.button>
-          </motion.div>
         </motion.div>
       </div>
     </section >
