@@ -11,6 +11,8 @@ import Navigation from "@/components/Navigation"
 import { PageTransition } from "@/components/PageTransition"
 import { StaggeredReveal } from "@/components/StaggeredReveal"
 import { FadeInSection } from "@/components/FadeInSection"
+import TestMonials from "@/components/TestMonials"
+
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -39,13 +41,16 @@ export default function Home() {
             <ExperienceSection />
           </StaggeredReveal>
 
-          <StaggeredReveal delay={1.0}>
+          {/* <StaggeredReveal delay={1.0}>
             <ProjectsSection />
+          </StaggeredReveal> */}
+          <StaggeredReveal delay={1.2}>
+            <TestMonials />
           </StaggeredReveal>
-
           <StaggeredReveal delay={1.2}>
             <ContactSection />
           </StaggeredReveal>
+
         </PageTransition>
       </div>
     </>
