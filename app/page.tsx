@@ -12,6 +12,7 @@ import { PageTransition } from "@/components/PageTransition"
 import { StaggeredReveal } from "@/components/StaggeredReveal"
 import { FadeInSection } from "@/components/FadeInSection"
 import TestMonials from "@/components/TestMonials"
+import EducationSection from "@/components/EducationSection"
 
 
 export default function Home() {
@@ -39,6 +40,10 @@ export default function Home() {
 
           <StaggeredReveal delay={0.8}>
             <ExperienceSection />
+          </StaggeredReveal>
+
+           <StaggeredReveal delay={0.8}>
+            <EducationSection />
           </StaggeredReveal>
 
           {/* <StaggeredReveal delay={1.0}>

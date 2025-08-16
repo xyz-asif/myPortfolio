@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef, useState, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { SectionHeader } from "./SectionHeader"
 
 const experiences = [
@@ -50,20 +50,21 @@ const experienceVariants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: [0.4, 0.0, 0.2, 1] as [number, number, number, number],
+      ease: [0.4, 0.0, 0.2, 1] as [number, number, number, number]
     },
   },
 }
 
 export default function ExperienceSection() {
-  const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef(null)
+  const [hasAnimated, setHasAnimated] = useState(false)
+
   const isInView = useInView(ref, {
     once: true,
-    margin: "-5%", // More lenient margin
-    amount: 0.05, // Lower threshold
+    margin: "-5%",
+    amount: 0.05,
   })
-  // Fallback visibility
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setHasAnimated(true)
@@ -74,14 +75,17 @@ export default function ExperienceSection() {
   const shouldShow = isInView || hasAnimated
 
   return (
-    <section id="experience" className="py-40 bg-gray-50">
+    <section id="experience" className="py-40 bg-white">
       <div className="max-w-6xl mx-auto px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={shouldShow ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: [0.4, 0.0, 0.2, 1] }}
-          style={{ willChange: "transform, opacity" }}
+          style={{
+            willChange: "transform, opacity",
+            minHeight: "200px",
+          }}
         >
           <div className="grid lg:grid-cols-12 gap-20">
             <div className="lg:col-span-3">
@@ -94,7 +98,7 @@ export default function ExperienceSection() {
                 initial="hidden"
                 animate={shouldShow ? "visible" : "hidden"}
                 className="space-y-20"
-                style={{ willChange: "transform, opacity", minHeight: "200px" }}
+                style={{ willChange: "transform, opacity" }}
               >
                 {experiences.map((exp, index) => (
                   <motion.div
@@ -117,38 +121,6 @@ export default function ExperienceSection() {
                     </div>
                   </motion.div>
                 ))}
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={shouldShow  ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{
-                  delay: 0.6,
-                  duration: 0.6,
-                  ease: [0.4, 0.0, 0.2, 1],
-                }}
-                className="mt-24 pt-16 border-t border-gray-200"
-                style={{ willChange: "transform, opacity" }}
-              >
-                <div className="grid md:grid-cols-2 gap-16">
-                  <div>
-                    <h3 className="text-lg font-medium text-black mb-8 tracking-tight">Education</h3>
-                    <div>
-                      <h4 className="font-medium text-black mb-2">Civil Engineering</h4>
-                      <p className="text-sm text-gray-600 mb-1">PVKK Institute of Technology</p>
-                      <p className="text-sm text-gray-400">2018 — 2022</p>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-medium text-black mb-8 tracking-tight">Certification</h3>
-                    <div>
-                      <h4 className="font-medium text-black mb-2">Flutter Developer</h4>
-                      <p className="text-sm text-gray-600 mb-1">Udacity</p>
-                      <p className="text-sm text-gray-400">2020</p>
-                    </div>
-                  </div>
-                </div>
               </motion.div>
             </div>
           </div>
