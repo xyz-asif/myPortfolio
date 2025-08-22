@@ -247,7 +247,7 @@ export default function Navigation() {
                       +91 7036727179
                     </motion.a>
                     <motion.a
-                      href="https://linkedin.com/in/asifdeveloper"
+                      href="https://github.com/xyz-asif"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block text-sm font-medium text-gray-600 hover:text-black transition-colors duration-200"

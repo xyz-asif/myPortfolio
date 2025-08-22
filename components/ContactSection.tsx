@@ -129,16 +129,16 @@ export default function ContactSection() {
                     </motion.div>
 
                     <motion.div variants={itemVariants} style={{ willChange: "transform, opacity" }}>
-                      <h3 className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3">LinkedIn</h3>
+                      <h3 className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3">Git-Hub</h3>
                       <motion.a
-                        href="https://linkedin.com/in/asifdeveloper"
+                        href="https://github.com/xyz-asif"
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ opacity: 0.6 }}
                         transition={{ duration: 0.2 }}
                         className="text-lg font-light text-black transition-opacity duration-200"
                       >
-                        linkedin.com/in/asifdeveloper
+                        github.com/xyz-asif
                       </motion.a>
                     </motion.div>
                   </div>
