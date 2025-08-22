@@ -1,5 +1,4 @@
 "use client"
-
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -28,10 +27,10 @@ export function SmoothAnimatedText({ words, className = "" }: SmoothAnimatedText
     <span
       className={`inline-block relative ${className}`}
       style={{
-        transition: "width 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)",
-        paddingRight: "0.2em",
-        willChange: "width",
-        transform: "translate3d(0, 0, 0)", // Force GPU acceleration
+        width: "3.7em", // Fixed width to accommodate "Develop" (the longest word)
+        textAlign: "center",
+        willChange: "transform",
+        transform: "translate3d(0, 0, 0)",
       }}
     >
       <AnimatePresence mode="wait" initial={false}>
@@ -49,6 +48,7 @@ export function SmoothAnimatedText({ words, className = "" }: SmoothAnimatedText
             willChange: "transform, opacity",
             transformStyle: "preserve-3d",
             perspective: 1000,
+            textAlign: "center",
           }}
         >
           {words[currentIndex]}

@@ -6,7 +6,7 @@ import { SectionHeader } from "./SectionHeader"
 
 const education = [
     {
-        institution: "PVKK Institute of Technology",
+        institution: "JNTU Anantapur",
         degree: "Bachelor of Technology",
         field: "Civil Engineering",
         location: "Anantapur",

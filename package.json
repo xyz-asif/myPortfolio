@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
     "dev": "next dev",
+    "build": "next build",
+    "export": "next export",
+    "start": "next start",
     "lint": "next lint",
-    "start": "next start"
+    "deploy": "npm run build && npm run export && firebase deploy"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",

@@ -6,12 +6,12 @@ import { SectionHeader } from "./SectionHeader"
 
 const experiences = [
   {
-    company: "Ahex Technologies",
-    position: "Software Engineer",
+    company: "PWC India",
+    position: "Team Lead",
     location: "Hyderabad",
     duration: "2024 — Present",
     description:
-      "Leading CI/CD implementation and native platform integration for Flutter applications. Managing end-to-end deployment processes for mobile applications across multiple platforms.",
+      "Leading a team of developers in creating robust mobile applications. Responsible for project planning, code reviews, and ensuring timely delivery of high-quality software solutions.",
   },
   {
     company: "DigitalRaiz Creative Solutions",

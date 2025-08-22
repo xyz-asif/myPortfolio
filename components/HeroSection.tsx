@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { SmoothAnimatedText } from "./SmoothAnimatedText"
+import AnimatedText from "./AnimatedText"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -109,3 +110,4 @@ export default function HeroSection() {
     </section>
   )
 }
+
