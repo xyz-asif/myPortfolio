@@ -20,6 +20,10 @@ const skills = [
   "Push Notifications",
   "Payment Integration",
   "App Store Optimization",
+  "Google Maps Intigration",
+  "Figma",
+  "Play Store Optimization",
+  "Animations"
 ]
 
 const containerVariants = {
