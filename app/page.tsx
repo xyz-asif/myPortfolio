@@ -13,7 +13,7 @@ import { StaggeredReveal } from "@/components/StaggeredReveal"
 import { FadeInSection } from "@/components/FadeInSection"
 import TestMonials from "@/components/TestMonials"
 import EducationSection from "@/components/EducationSection"
-
+import GoogleAnalytics from "@/components/GoogleAnalytics"
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -24,6 +24,9 @@ export default function Home() {
 
   return (
     <>
+      {/* Google Analytics */}
+      <GoogleAnalytics GA_MEASUREMENT_ID="G-RWPNXLSLN4" />
+
       <div ref={containerRef} className="bg-white text-black">
         <PageTransition>
           <FadeInSection delay={0.2}>
@@ -42,7 +45,7 @@ export default function Home() {
             <ExperienceSection />
           </StaggeredReveal>
 
-           <StaggeredReveal delay={0.8}>
+          <StaggeredReveal delay={0.8}>
             <EducationSection />
           </StaggeredReveal>
 
@@ -55,7 +58,6 @@ export default function Home() {
           <StaggeredReveal delay={1.2}>
             <ContactSection />
           </StaggeredReveal>
-
         </PageTransition>
       </div>
     </>
