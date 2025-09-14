@@ -5,6 +5,7 @@ import type React from "react"
 import { motion, useInView } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
 import { SectionHeader } from "./SectionHeader"
+import { trackEvent } from "./GoogleAnalytics"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -54,6 +55,13 @@ export default function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    trackEvent('form_submit', {
+      form_type: 'contact',
+      has_name: !!formData.name,
+      has_email: !!formData.email,
+      has_subject: !!formData.subject,
+      has_message: !!formData.message
+    })
     // Handle form submission
     console.log("Form submitted:", formData)
   }
@@ -108,6 +116,7 @@ export default function ContactSection() {
                       <h3 className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3">Email</h3>
                       <motion.a
                         href="mailto:connectasifshaik@gmail.com"
+                        onClick={() => trackEvent('contact_click', { type: 'email', location: 'contact_section' })}
                         whileHover={{ opacity: 0.6 }}
                         transition={{ duration: 0.2 }}
                         className="text-lg font-light text-black transition-opacity duration-200"
@@ -120,6 +129,7 @@ export default function ContactSection() {
                       <h3 className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-3">Phone</h3>
                       <motion.a
                         href="tel:7036727179"
+                        onClick={() => trackEvent('contact_click', { type: 'phone', location: 'contact_section' })}
                         whileHover={{ opacity: 0.6 }}
                         transition={{ duration: 0.2 }}
                         className="text-lg font-light text-black transition-opacity duration-200"
@@ -134,6 +144,7 @@ export default function ContactSection() {
                         href="https://github.com/xyz-asif"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackEvent('contact_click', { type: 'github', location: 'contact_section' })}
                         whileHover={{ opacity: 0.6 }}
                         transition={{ duration: 0.2 }}
                         className="text-lg font-light text-black transition-opacity duration-200"

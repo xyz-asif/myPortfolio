@@ -2,6 +2,19 @@
 
 import Script from "next/script"
 
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void
+    dataLayer: any[]
+  }
+}
+
+export function trackEvent(eventName: string, parameters?: Record<string, any>) {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', eventName, parameters)
+  }
+}
+
 export default function GoogleAnalytics({ GA_MEASUREMENT_ID }: { GA_MEASUREMENT_ID: string }) {
   return (
     <>

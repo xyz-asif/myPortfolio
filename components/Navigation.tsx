@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
+import { trackEvent } from "./GoogleAnalytics"
 
 const navItems = [
   { name: "Work", href: "#projects" },
@@ -65,6 +66,10 @@ export default function Navigation() {
   }, [])
 
   const handleNavClick = (href: string) => {
+    trackEvent('navigation_click', {
+      section: href.replace('#', ''),
+      location: 'navigation_menu'
+    })
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
@@ -73,6 +78,9 @@ export default function Navigation() {
   }
 
   const toggleMobileMenu = () => {
+    trackEvent('mobile_menu_toggle', {
+      action: mobileMenuOpen ? 'close' : 'open'
+    })
     setMobileMenuOpen(!mobileMenuOpen)
   }
 
@@ -232,6 +240,7 @@ export default function Navigation() {
                   <div className="space-y-4">
                     <motion.a
                       href="mailto:connectasifshaik@gmail.com"
+                      onClick={() => trackEvent('contact_click', { type: 'email', location: 'mobile_menu' })}
                       className="block text-sm font-medium text-gray-600 hover:text-black transition-colors duration-200"
                       whileHover={{ opacity: 0.7 }}
                       transition={{ duration: 0.2 }}
@@ -240,6 +249,7 @@ export default function Navigation() {
                     </motion.a>
                     <motion.a
                       href="tel:7036727179"
+                      onClick={() => trackEvent('contact_click', { type: 'phone', location: 'mobile_menu' })}
                       className="block text-sm font-medium text-gray-600 hover:text-black transition-colors duration-200"
                       whileHover={{ opacity: 0.7 }}
                       transition={{ duration: 0.2 }}
@@ -250,6 +260,7 @@ export default function Navigation() {
                       href="https://github.com/xyz-asif"
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackEvent('contact_click', { type: 'github', location: 'mobile_menu' })}
                       className="block text-sm font-medium text-gray-600 hover:text-black transition-colors duration-200"
                       whileHover={{ opacity: 0.7 }}
                       transition={{ duration: 0.2 }}
