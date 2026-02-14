@@ -6,7 +6,7 @@ import { SectionHeader } from "./SectionHeader"
 
 const experiences = [
   {
-    company: "PWC India",
+    company: "Ahex Technologies PVT LTD",
     position: "Team Lead",
     location: "Hyderabad",
     duration: "2024 — Present",
